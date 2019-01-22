@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" ref="sliderWrapper">
+  <div class="wrapper1" ref="sliderWrapper">
     <div class="slider" ref="slider">
       <div class="icons" v-for="(i, index) in page" :key="index">
         <div class="icon" v-for="item in _slice(index)" :key="item.id">

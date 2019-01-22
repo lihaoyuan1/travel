@@ -1,10 +1,14 @@
 <template>
   <div>
     <home-header :city="city"></home-header>
-    <slider :list="swiperList"></slider>
-    <icons :list="iconList"></icons>
-    <recommend :list="recommendList"></recommend>
-    <weekend :list="weekendList"></weekend>
+    <div class="wrapper" ref="wrapper">
+      <div>
+        <slider :list="swiperList"></slider>
+        <icons :list="iconList"></icons>
+        <recommend :list="recommendList"></recommend>
+        <weekend :list="weekendList"></weekend>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,6 +19,7 @@ import Icons from './components/icons/icons'
 import Recommend from './components/recommend/recommend'
 import Weekend from './components/weekend/weekend'
 import axios from 'axios'
+import BScroll from 'better-scroll'
 export default {
   name: 'home',
   components: {
@@ -48,11 +53,26 @@ export default {
       })
     }
   },
-  mounted () {
+  created () {
     this.getHomeInfo()
+  },
+  mounted () {
+    this.timer = setTimeout(() => {
+      this.scroll = new BScroll(this.$refs.wrapper)
+    })
+  },
+  destroyed () {
+    clearTimeout(this.timer)
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
+.wrapper
+  position absolute
+  top .86rem
+  left 0
+  right 0
+  bottom 0
+  overflow hidden
 </style>
