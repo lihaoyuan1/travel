@@ -47,7 +47,7 @@ export default {
       if (this._autoPlay) {
         this._autoPlay()
       }
-    }, 20)
+    }, 30)
     window.addEventListener('resize', () => {
       if (!this.slider) {
         return
@@ -78,6 +78,7 @@ export default {
         scrollX: true,
         scrollY: false,
         momentum: false,
+        eventPassthrough: 'vertical',
         snap: {
           loop: this.loop,
           threshold: 0.3,

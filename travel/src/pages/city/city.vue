@@ -1,15 +1,18 @@
 <template>
-  <div class="header">
-    城市选择
+  <div>
+    <city-header></city-header>
   </div>
 </template>
 
 <script>
+import CityHeader from './components/header/header'
 export default {
-  name: 'city'
+  name: 'city',
+  components: {
+    CityHeader
+  }
 }
 </script>
 
-<style scoped lang="stylus">
-  @import "city.styl"
+<style scoped>
 </style>

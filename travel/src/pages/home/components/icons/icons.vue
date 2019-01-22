@@ -42,7 +42,7 @@ export default {
       this._initSliderWidth()
       this._initDots()
       this._initSlider()
-    }, 20)
+    }, 30)
     window.addEventListener('resize', () => {
       if (!this.slider) {
         return
@@ -70,6 +70,7 @@ export default {
         scrollX: true,
         scrollY: false,
         momentum: false,
+        eventPassthrough: 'vertical',
         snap: {
           loop: false,
           threshold: 0.3,
