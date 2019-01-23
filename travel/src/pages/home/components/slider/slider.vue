@@ -2,7 +2,7 @@
   <div class="slider-wrapper" ref="sliderWrapper">
     <div class="slider" ref="slider">
       <template v-for="item in list">
-        <img :key="item.id" class="img" :src="item.imgUrl">
+        <img @load="initSlider" :key="item.id" class="img" :src="item.imgUrl">
       </template>
     </div>
     <div class="dots">
@@ -40,14 +40,6 @@ export default {
     }
   },
   mounted () {
-    this.timer = setTimeout(() => {
-      this._setSliderWidth()
-      this._initDots()
-      this._initSlider()
-      if (this._autoPlay) {
-        this._autoPlay()
-      }
-    }, 30)
     window.addEventListener('resize', () => {
       if (!this.slider) {
         return
@@ -57,6 +49,16 @@ export default {
     })
   },
   methods: {
+    initSlider () {
+      if (!this.slider) {
+        this._setSliderWidth()
+        this._initDots()
+        this._initSlider()
+        if (this._autoPlay) {
+          this._autoPlay()
+        }
+      }
+    },
     _setSliderWidth (isResize) {
       this.child = this.$refs.slider.children
       let wrapperWidth = this.$refs.sliderWrapper.clientWidth
@@ -101,9 +103,6 @@ export default {
         this.slider.next()
       }, this.interval)
     }
-  },
-  destroyed () {
-    clearTimeout(this.timer)
   }
 }
 </script>

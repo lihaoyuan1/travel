@@ -4,7 +4,7 @@
       <div class="icons" v-for="(i, index) in page" :key="index">
         <div class="icon" v-for="item in _slice(index)" :key="item.id">
           <div class="icon-img">
-            <img class="img" :src="item.imgUrl">
+            <img @load="initSlider" class="img" :src="item.imgUrl">
           </div>
           <p class="icon-desc">{{item.desc}}</p>
         </div>
@@ -38,11 +38,6 @@ export default {
     }
   },
   mounted () {
-    this.timer = setTimeout(() => {
-      this._initSliderWidth()
-      this._initDots()
-      this._initSlider()
-    }, 30)
     window.addEventListener('resize', () => {
       if (!this.slider) {
         return
@@ -52,6 +47,13 @@ export default {
     })
   },
   methods: {
+    initSlider () {
+      if (!this.slider) {
+        this._initSliderWidth()
+        this._initDots()
+        this._initSlider()
+      }
+    },
     _initSliderWidth () {
       this.child = this.$refs.slider.children
       let wrapperWidth = this.$refs.sliderWrapper.clientWidth
@@ -84,9 +86,6 @@ export default {
     _slice (index) {
       return this.list.slice(index * 8, (index + 1) * 8)
     }
-  },
-  destroyed () {
-    clearTimeout(this.timer)
   }
 }
 </script>
