@@ -2,6 +2,7 @@
   <div class="wrapper" ref="sliderWrapper">
     <div ref="slider">
       <banner @bannerClick="handleBannerOpen"></banner>
+      <list :list="list"></list>
       <div style="height: 50rem"></div>
     </div>
     <detail-header ref="header"></detail-header>
@@ -14,12 +15,14 @@ import BScroll from 'better-scroll'
 import Banner from './components/banner/banner'
 import DetailHeader from './components/header/header'
 import Gallary from 'common/gallary/gallary'
+import List from './components/list/list'
 export default {
   name: 'detail',
   components: {
     Banner,
     DetailHeader,
-    Gallary
+    Gallary,
+    List
   },
   data () {
     return {
@@ -29,6 +32,28 @@ export default {
         'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg',
         'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg',
         'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg'
+      ],
+      list: [
+        {
+          title: '成人票',
+          children: [{
+            title: '成人三管联票',
+            children: [{
+              title: '成人三管联票 - 某一连锁店销售'
+            }]
+          }, {
+            title: '成人五馆联票'
+          }]
+        },
+        {
+          title: '学生票'
+        },
+        {
+          title: '儿童票'
+        },
+        {
+          title: '特惠票'
+        }
       ]
     }
   },
@@ -47,9 +72,6 @@ export default {
     this.scroll.on('scroll', (pos) => {
       const top = -pos.y
       if (top > 50) {
-        if (top > 100) {
-          return
-        }
         let opacity = (top - 50) / 50
         opacity = opacity > 1 ? 1 : opacity
         this.$refs.header.showHeader(true, opacity)

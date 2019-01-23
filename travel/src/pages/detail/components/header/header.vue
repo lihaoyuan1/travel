@@ -22,6 +22,7 @@ export default {
     showHeader (flag, opacity) {
       if (flag === false) {
         this.showFlag = false
+        this.opacityStyle = {opacity: 0}
       } else {
         this.showFlag = true
         this.opacityStyle = {opacity}
