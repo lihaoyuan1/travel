@@ -1,11 +1,12 @@
 <template>
   <div class="wrapper" ref="sliderWrapper">
     <div ref="slider">
-      <banner :sightName="sightName" @bannerClick="handleBannerOpen"></banner>
-      <div style="height: 50rem"></div>
+      <banner :sightName="sightName" :bannerImg="bannerImg" @bannerClick="handleBannerOpen"></banner>
+      <list :list="list"></list>
+      <div style="height: 4rem"></div>
     </div>
     <detail-header ref="header"></detail-header>
-    <gallary :images="bannerImg" v-if="showGallary" @close="handleGallaryClose"></gallary>
+    <gallary :images="gallaryImgs" v-if="showGallary" @close="handleGallaryClose"></gallary>
   </div>
 </template>
 
@@ -15,9 +16,11 @@ import axios from 'axios'
 import Banner from './components/banner/banner'
 import DetailHeader from './components/header/header'
 import Gallary from 'common/gallary/gallary'
+import List from './components/list/list'
 export default {
   name: 'detail',
   components: {
+    List,
     Banner,
     DetailHeader,
     Gallary
@@ -61,9 +64,6 @@ export default {
     this.scroll.on('scroll', (pos) => {
       const top = -pos.y
       if (top > 50) {
-        if (top > 100) {
-          return
-        }
         let opacity = (top - 50) / 50
         opacity = opacity > 1 ? 1 : opacity
         this.$refs.header.showHeader(true, opacity)
