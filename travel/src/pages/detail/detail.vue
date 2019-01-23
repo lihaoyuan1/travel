@@ -1,16 +1,17 @@
 <template>
   <div class="wrapper" ref="sliderWrapper">
     <div ref="slider">
-      <banner @bannerClick="handleBannerOpen"></banner>
+      <banner :sightName="sightName" @bannerClick="handleBannerOpen"></banner>
       <div style="height: 50rem"></div>
     </div>
     <detail-header ref="header"></detail-header>
-    <gallary :images="images" v-if="showGallary" @close="handleGallaryClose"></gallary>
+    <gallary :images="bannerImg" v-if="showGallary" @close="handleGallaryClose"></gallary>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
+import axios from 'axios'
 import Banner from './components/banner/banner'
 import DetailHeader from './components/header/header'
 import Gallary from 'common/gallary/gallary'
@@ -24,12 +25,10 @@ export default {
   data () {
     return {
       showGallary: false,
-      images: [
-        'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg',
-        'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg',
-        'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg',
-        'http://img1.qunarzz.com/sight/p0/1412/29/b332c6de775de6b9c2ca2cafca33a963.water.jpg_r_800x800_8deed802.jpg'
-      ]
+      sightName: '',
+      bannerImg: '',
+      gallaryImgs: [],
+      list: []
     }
   },
   methods: {
@@ -38,7 +37,22 @@ export default {
     },
     handleGallaryClose () {
       this.showGallary = false
+    },
+    getDetailInfo () {
+      axios.get('/api/detail.json', {params: {id: this.$route.params.id}}).then(response => {
+        response = response.data
+        if (response.ret && response.data) {
+          const data = response.data
+          this.sightName = data.sightName
+          this.bannerImg = data.bannerImg
+          this.gallaryImgs = data.gallaryImgs
+          this.list = data.categoryList
+        }
+      })
     }
+  },
+  created () {
+    this.getDetailInfo()
   },
   mounted () {
     this.scroll = new BScroll(this.$refs.sliderWrapper, {
