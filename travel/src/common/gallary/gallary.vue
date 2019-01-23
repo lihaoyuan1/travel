@@ -21,7 +21,7 @@ export default {
   },
   data () {
     return {
-      currentPageIndex: 1
+      currentPageIndex: 0
     }
   },
   computed: {
