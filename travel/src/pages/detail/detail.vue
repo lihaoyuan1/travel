@@ -46,7 +46,7 @@ export default {
       this.showGallary = false
     },
     getDetailInfo () {
-      axios.get('/api/detail.json', {params: {id: this.$route.params.id}}).then(response => {
+      axios.get('/travel-data/detail.json', {params: {id: this.$route.params.id}}).then(response => {
         response = response.data
         if (response.ret && response.data) {
           const data = response.data
@@ -63,7 +63,8 @@ export default {
   },
   mounted () {
     this.scroll = new BScroll(this.$refs.sliderWrapper, {
-      probeType: 3
+      probeType: 3,
+      click: true
     })
     this.scroll.on('scroll', (pos) => {
       const top = -pos.y

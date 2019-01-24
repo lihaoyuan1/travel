@@ -33,7 +33,7 @@ export default {
       this.letter = letter
     },
     getCityInfo () {
-      axios.get('/api/city.json').then(response => {
+      axios.get('/travel-data/city.json').then(response => {
         response = response.data
         if (response.ret && response.data) {
           const data = response.data

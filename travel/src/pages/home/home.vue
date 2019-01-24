@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getHomeInfo () {
-      axios.get('/api/index.json').then(response => {
+      axios.get('/travel-data/index.json').then(response => {
         response = response.data
         if (response.ret && response.data) {
           const data = response.data
@@ -56,7 +56,9 @@ export default {
   },
   mounted () {
     this.timer = setTimeout(() => {
-      this.scroll = new BScroll(this.$refs.wrapper)
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        click: true
+      })
     })
   },
   destroyed () {
