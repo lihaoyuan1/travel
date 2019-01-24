@@ -6,7 +6,9 @@
       <div style="height: 4rem"></div>
     </div>
     <detail-header ref="header"></detail-header>
-    <gallary :images="gallaryImgs" v-if="showGallary" @close="handleGallaryClose"></gallary>
+    <fade>
+      <gallary :images="gallaryImgs" v-if="showGallary" @close="handleGallaryClose"></gallary>
+    </fade>
   </div>
 </template>
 
@@ -17,13 +19,15 @@ import Banner from './components/banner/banner'
 import DetailHeader from './components/header/header'
 import Gallary from 'common/gallary/gallary'
 import List from './components/list/list'
+import Fade from 'common/fade/fade'
 export default {
   name: 'detail',
   components: {
     List,
     Banner,
     DetailHeader,
-    Gallary
+    Gallary,
+    Fade
   },
   data () {
     return {
